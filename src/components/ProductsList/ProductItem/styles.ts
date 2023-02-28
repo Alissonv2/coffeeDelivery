@@ -76,14 +76,14 @@ export const FooterProductItem = styled.footer`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 2rem;
+	padding: 1rem;
 
 	width: 100%;
 	height: 100%;
 
 	span {
 		font-family: 'Baloo 2';
-		font-size: 1.5rem;
+		font-size: 1.3rem;
 		font-weight: 800;
 		line-height: 2rem;
 		letter-spacing: 0em;
@@ -102,4 +102,10 @@ export const FooterProductItem = styled.footer`
 			color: #574f4d;
 		} */
 	}
+`
+
+export const ItemActionsContainer = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
 `

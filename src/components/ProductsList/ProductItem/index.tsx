@@ -1,11 +1,14 @@
 import { CoffeeProducts } from '../../../@types/products'
 import { formatCurrency } from '../../../utils'
+import { CardButton } from '../../CardButton'
+import { InputQTDEitems } from '../../Inputs/InputQtdeItems'
 import {
 	ContentProductItem,
 	ContainerTypes,
 	ProductName,
 	PoductDescription,
 	FooterProductItem,
+	ItemActionsContainer,
 } from './styles'
 
 interface ProductItemProps {
@@ -25,6 +28,15 @@ export function ProductItem({ product }: ProductItemProps) {
 			<PoductDescription>{product?.description}</PoductDescription>
 			<FooterProductItem>
 				<span>{formatCurrency(product.price)}</span>
+				<ItemActionsContainer>
+					<InputQTDEitems />
+					<CardButton
+						width={2.375}
+						height={2.375}
+						color={'#F3F2F2'}
+						background={'#4B2995'}
+					/>
+				</ItemActionsContainer>
 			</FooterProductItem>
 		</ContentProductItem>
 	)
