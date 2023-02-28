@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { ShoppingCart } from 'phosphor-react'
 import { CartButton } from './styles'
 
@@ -14,12 +15,14 @@ export function CardButton({
 	color,
 	background,
 }: CardButtonProps) {
+	const navigate = useNavigate()
 	return (
 		<CartButton
 			width={width}
 			height={height}
 			color={color}
 			background={background}
+			onClick={() => navigate('checkout')}
 		>
 			<ShoppingCart size={25} weight="fill" />
 		</CartButton>
