@@ -7,24 +7,6 @@ export const ContainerMenuHeader = styled.div`
 	align-items: center;
 `
 
-export const CartButton = styled.button`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	width: 38px;
-	height: 38px;
-
-	background: #f1e9c9;
-	border: none;
-	border-radius: 6px;
-	color: #c47f17;
-
-	&:hover {
-		cursor: pointer;
-	}
-`
-
 export const LocationButton = styled.button`
 	display: flex;
 	justify-content: center;
