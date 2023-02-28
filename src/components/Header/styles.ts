@@ -7,3 +7,11 @@ export const HeaderContainer = styled.header`
 	align-items: center;
 	justify-content: space-between;
 `
+
+export const LogoContainer = styled.div`
+	display: flex;
+
+	&:hover {
+		cursor: pointer;
+	}
+`

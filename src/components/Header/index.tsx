@@ -1,11 +1,16 @@
+import { useNavigate } from 'react-router-dom'
 import Logo from '../../assets/Logo.svg'
 import { MenuHeader } from '../MenuHeader'
-import { HeaderContainer } from './styles'
+import { HeaderContainer, LogoContainer } from './styles'
 
 export function Header() {
+	const navigate = useNavigate()
 	return (
 		<HeaderContainer>
-			<img src={Logo} alt="" />
+			<LogoContainer onClick={() => navigate('')}>
+				<img src={Logo} alt="" />
+			</LogoContainer>
+
 			<MenuHeader />
 		</HeaderContainer>
 	)
