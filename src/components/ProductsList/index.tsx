@@ -1,3 +1,4 @@
+import { ProductItem } from './ProductItem'
 import { CoffeeProducts } from '../../@types/products'
 import { ContainerProductList } from './styles'
 
@@ -9,11 +10,7 @@ export function ProductListCoffee({ products }: PropsProductsData) {
 		<ContainerProductList>
 			{products &&
 				products.map((product: CoffeeProducts) => {
-					return (
-						<div key={product.name}>
-							<img src={product.image} alt="" />
-						</div>
-					)
+					return <ProductItem key={product.id} product={product} />
 				})}
 		</ContainerProductList>
 	)
