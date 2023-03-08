@@ -6,7 +6,6 @@ export const FormContainer = styled.form`
 
 	flex-direction: column;
 	align-items: flex-start;
-	padding: 0px;
 	gap: 1rem;
 
 	min-width: 640px;
@@ -30,11 +29,12 @@ const BaseContainersForm = styled.div`
 `
 
 export const ContainerInputs = styled(BaseContainersForm)`
-	height: 372px;
+	max-height: 25rem;
 `
 
 export const ContainerPayment = styled(BaseContainersForm)`
-	height: 207px;
+	gap: 1rem;
+	max-height: 12rem;
 `
 
 export const FormInputsContainer = styled.div`
@@ -84,21 +84,71 @@ export const ContainerTitle = styled.div`
 			font-weight: 400;
 			font-size: 0.875rem;
 			line-height: 130%;
-			/* or 18px */
 
 			display: flex;
 			align-items: center;
 
-			/* Base/Text */
-
 			color: #574f4d;
-
-			/* Inside auto layout */
 
 			flex: none;
 			order: 1;
 			align-self: stretch;
 			flex-grow: 0;
 		}
+	}
+`
+
+export const SelectPaymentContainer = styled.div`
+	display: flex;
+	gap: 0.5rem;
+	width: 100%;
+`
+
+export const CardPaymentButton = styled.div`
+	display: flex;
+	align-items: center;
+	padding-left: 0.5rem;
+	gap: 0.8rem;
+
+	width: 8rem;
+	height: 51px;
+
+	/* Base/Button */
+
+	background: #e6e5e5;
+	border-radius: 6px;
+
+	/* Inside auto layout */
+
+	flex: none;
+	order: 0;
+	flex-grow: 1;
+
+	input {
+		display: flex;
+		background: transparent;
+		border: none;
+		width: 100%;
+		height: 100%;
+
+		font-family: 'Roboto';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 0.7rem;
+		line-height: 160%;
+
+		text-transform: uppercase;
+
+		color: #574f4d;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	&:hover {
+		cursor: pointer;
+		background: #ebe5f9;
+		border: 1px solid #8047f8;
 	}
 `

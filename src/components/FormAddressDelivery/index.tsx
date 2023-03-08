@@ -1,25 +1,36 @@
-import { MapPinLine, CurrencyDollar } from 'phosphor-react'
+import {
+	MapPinLine,
+	CurrencyDollar,
+	Cardholder,
+	Bank,
+	Money,
+} from 'phosphor-react'
 import { InputAddress } from '../Inputs/InputFormAddress'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 
 import {
+	CardPaymentButton,
 	ContainerInputs,
 	ContainerPayment,
 	ContainerTitle,
 	FormContainer,
 	FormInputsContainer,
+	SelectPaymentContainer,
 } from './styles'
+
+type paymentMethods = 'cartão de crédito' | 'cartão de débito' | 'dinheiro'
 
 const addressFormValidationSchema = zod.object({
 	cep: zod.string().regex(/^[0-9]{5}-?[0-9]{3}$/, 'Informe um cep válido'),
 	rua: zod.string().min(1, 'Informe a rua'),
-	numero: zod.string(),
-	complemento: zod.string(),
+	numero: zod.number(),
+	complemento: zod.string().optional(),
 	bairro: zod.string().min(1, 'Informe o bairro'),
 	cidade: zod.string().min(1, 'Informe a cidade'),
 	uf: zod.string().min(1, 'Informe o estado').max(2),
+	payment: zod.string(),
 })
 
 type FormAddressData = zod.infer<typeof addressFormValidationSchema>
@@ -30,7 +41,7 @@ export function FormDelivery() {
 		defaultValues: {
 			cep: '63050735',
 			rua: 'Rua das flores',
-			numero: '1632',
+			numero: 1632,
 			complemento: '',
 			bairro: 'Romeirão',
 			cidade: 'Juazeiro do norte',
@@ -41,6 +52,8 @@ export function FormDelivery() {
 	function handleFormSubmit(data: FormAddressData) {
 		console.log(data)
 	}
+
+	console.log(formState.errors)
 
 	return (
 		<FormContainer onSubmit={handleSubmit(handleFormSubmit)}>
@@ -61,7 +74,7 @@ export function FormDelivery() {
 					</InputAddress>
 					<InputAddress width={30}>
 						<input
-							type="string"
+							type="number"
 							placeholder="Número"
 							{...register('numero', { valueAsNumber: true })}
 						/>
@@ -94,6 +107,20 @@ export function FormDelivery() {
 						</p>
 					</div>
 				</ContainerTitle>
+				<SelectPaymentContainer>
+					<CardPaymentButton>
+						<Cardholder size={32} color="#8047F8" />
+						<input type="submit" value="cartão de crédito" />
+					</CardPaymentButton>
+					<CardPaymentButton>
+						<Bank size={32} color="#8047F8" />
+						<input type="submit" value="cartão de débito" />
+					</CardPaymentButton>
+					<CardPaymentButton>
+						<Money size={32} color="#8047F8" />
+						<input type="submit" value="dinheiro" />
+					</CardPaymentButton>
+				</SelectPaymentContainer>
 			</ContainerPayment>
 		</FormContainer>
 	)
