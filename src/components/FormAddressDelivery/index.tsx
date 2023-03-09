@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
 	MapPinLine,
 	CurrencyDollar,
@@ -35,7 +35,12 @@ const addressFormValidationSchema = zod.object({
 type FormAddressData = zod.infer<typeof addressFormValidationSchema>
 
 export function FormDelivery() {
-	const { addressData, handleSaveAddressData } = useAddressDeliveryData()
+	const {
+		addressData,
+		handleSaveAddressData,
+		savePaymentMethod,
+		paymentMethod,
+	} = useAddressDeliveryData()
 	const { register, handleSubmit, formState, reset } = useForm<FormAddressData>(
 		{
 			resolver: zodResolver(addressFormValidationSchema),
@@ -104,15 +109,24 @@ export function FormDelivery() {
 					</div>
 				</ContainerTitle>
 				<SelectPaymentContainer>
-					<CardPaymentButton>
+					<CardPaymentButton
+						onClick={() => savePaymentMethod('credit')}
+						checked={paymentMethod === 'credit' && true}
+					>
 						<Cardholder size={32} color="#8047F8" />
 						<input type="submit" value="cartão de crédito" />
 					</CardPaymentButton>
-					<CardPaymentButton>
+					<CardPaymentButton
+						onClick={() => savePaymentMethod('debit')}
+						checked={paymentMethod === 'debit' && true}
+					>
 						<Bank size={32} color="#8047F8" />
 						<input type="submit" value="cartão de débito" />
 					</CardPaymentButton>
-					<CardPaymentButton>
+					<CardPaymentButton
+						onClick={() => savePaymentMethod('money')}
+						checked={paymentMethod === 'money' && true}
+					>
 						<Money size={32} color="#8047F8" />
 						<input type="submit" value="dinheiro" />
 					</CardPaymentButton>
