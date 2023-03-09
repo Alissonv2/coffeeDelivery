@@ -10,29 +10,29 @@ interface AddressDataType {
 	uf: string
 }
 
+type PaymentMethodType = 'credit' | 'debit' | 'money' | null
+
 export function useAddressDeliveryData() {
 	const [addressData, setAddressData] = useState<AddressDataType>()
+	const [paymentMethod, setPaymentMethod] = useState<PaymentMethodType>()
 
 	useEffect(() => {
 		const addressDeliveryLocale = localStorage.getItem(
 			'@CoffeeDelivery-addressDelivery',
 		)
+		const paymentSaved = localStorage.getItem('@CoffeeDelivery-payment')
 
-		if (!addressDeliveryLocale) return
+		if (!addressDeliveryLocale || !paymentSaved) return
 
 		const parsedAddressDeliveryLocale = JSON.parse(addressDeliveryLocale)
+		const parsedPayment = JSON.parse(paymentSaved)
+
 		setAddressData(parsedAddressDeliveryLocale)
 
+		setPaymentMethod(parsedPayment)
+
 		return () => {
-			setAddressData({
-				cep: '',
-				rua: '',
-				numero: null,
-				complemento: '',
-				bairro: '',
-				cidade: '',
-				uf: '',
-			})
+			resetFormAddress()
 		}
 	}, [])
 
@@ -56,5 +56,16 @@ export function useAddressDeliveryData() {
 		})
 	}
 
-	return { addressData, handleSaveAddressData, resetFormAddress }
+	const savePaymentMethod = (payment: PaymentMethodType) => {
+		localStorage.setItem('@CoffeeDelivery-payment', JSON.stringify(payment))
+		setPaymentMethod(payment)
+	}
+
+	return {
+		addressData,
+		handleSaveAddressData,
+		resetFormAddress,
+		savePaymentMethod,
+		paymentMethod,
+	}
 }
