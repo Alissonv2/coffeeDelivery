@@ -104,7 +104,11 @@ export const SelectPaymentContainer = styled.div`
 	width: 100%;
 `
 
-export const CardPaymentButton = styled.div`
+type PaymentChecked = {
+	checked: boolean
+}
+
+export const CardPaymentButton = styled.div<PaymentChecked>`
 	display: flex;
 	align-items: center;
 	padding-left: 0.5rem;
@@ -115,7 +119,8 @@ export const CardPaymentButton = styled.div`
 
 	/* Base/Button */
 
-	background: #e6e5e5;
+	/* background: #e6e5e5; */
+	background: ${(props) => (props.checked ? `#ebe5f9` : `#e6e5e5`)};
 	border-radius: 6px;
 
 	/* Inside auto layout */
