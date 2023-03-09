@@ -6,3 +6,10 @@ export interface CoffeeProducts {
 	image: string
 	type: string[]
 }
+
+export interface ProductItem {
+	id?: number | null
+	image: string
+	name: string
+	price: number
+}
