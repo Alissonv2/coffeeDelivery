@@ -29,7 +29,7 @@ export function ProductItem({ product }: ProductItemProps) {
 			<FooterProductItem>
 				<span>{formatCurrency(product.price)}</span>
 				<ItemActionsContainer>
-					<InputQTDEitems />
+					<InputQTDEitems item={product} />
 					<CardButton
 						width={2.375}
 						height={2.375}
