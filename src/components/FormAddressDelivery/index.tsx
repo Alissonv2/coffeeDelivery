@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import {
 	MapPinLine,
 	CurrencyDollar,
@@ -9,6 +10,7 @@ import { InputAddress } from '../Inputs/InputFormAddress'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
+import { useAddressDeliveryData } from '../../hooks/AddressFormHook'
 
 import {
 	CardPaymentButton,
@@ -20,40 +22,34 @@ import {
 	SelectPaymentContainer,
 } from './styles'
 
-type paymentMethods = 'cartão de crédito' | 'cartão de débito' | 'dinheiro'
-
 const addressFormValidationSchema = zod.object({
 	cep: zod.string().regex(/^[0-9]{5}-?[0-9]{3}$/, 'Informe um cep válido'),
 	rua: zod.string().min(1, 'Informe a rua'),
-	numero: zod.number(),
+	numero: zod.number().nullable(),
 	complemento: zod.string().optional(),
 	bairro: zod.string().min(1, 'Informe o bairro'),
 	cidade: zod.string().min(1, 'Informe a cidade'),
 	uf: zod.string().min(1, 'Informe o estado').max(2),
-	payment: zod.string(),
 })
 
 type FormAddressData = zod.infer<typeof addressFormValidationSchema>
 
 export function FormDelivery() {
-	const { register, handleSubmit, formState } = useForm<FormAddressData>({
-		resolver: zodResolver(addressFormValidationSchema),
-		defaultValues: {
-			cep: '63050735',
-			rua: 'Rua das flores',
-			numero: 1632,
-			complemento: '',
-			bairro: 'Romeirão',
-			cidade: 'Juazeiro do norte',
-			uf: 'CE',
+	const { addressData, handleSaveAddressData } = useAddressDeliveryData()
+	const { register, handleSubmit, formState, reset } = useForm<FormAddressData>(
+		{
+			resolver: zodResolver(addressFormValidationSchema),
+			defaultValues: addressData,
 		},
-	})
+	)
+
+	useEffect(() => {
+		reset(addressData)
+	}, [reset, addressData])
 
 	function handleFormSubmit(data: FormAddressData) {
-		console.log(data)
+		handleSaveAddressData(data)
 	}
-
-	console.log(formState.errors)
 
 	return (
 		<FormContainer onSubmit={handleSubmit(handleFormSubmit)}>
