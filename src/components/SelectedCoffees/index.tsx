@@ -1,5 +1,7 @@
 import {
+	ButtonOrderConfirm,
 	ContainerButtons,
+	ContainerPaymentInformations,
 	ContentPriceAndName,
 	ContentProductContainer,
 	ProductCard,
@@ -16,23 +18,27 @@ import { useEffect, useState } from 'react'
 export function SelectedCoffees() {
 	const { shoppingCartData, removeProduct } = useCart()
 	const [dataProducts, setDataProducts] = useState<ProductItem[][]>([])
+	const deliveryFee = 3.5
 
-	async function handleProducts(productsArray: ProductItem[]) {
-		const newProductArray = productsArray.reduce((acumullator: any, object) => {
-			const { name } = object
-			if (!acumullator[name]) {
-				acumullator[name] = []
-			}
-			acumullator[name].push(object)
-			return acumullator
-		}, {})
+	async function handleProducts(productsArray: ProductItem[] | undefined) {
+		const newProductArray = productsArray?.reduce(
+			(acumullator: any, object) => {
+				const { name } = object
+				if (!acumullator[name]) {
+					acumullator[name] = []
+				}
+				acumullator[name].push(object)
+				return acumullator
+			},
+			{},
+		)
 		const newDataProducts: ProductItem[][] = Object.values(newProductArray)
 		setDataProducts(newDataProducts)
 	}
 
 	useEffect(() => {
 		handleProducts(shoppingCartData?.items)
-	}, [shoppingCartData.items])
+	}, [shoppingCartData?.items])
 
 	return (
 		<SelectedCoffeesContainer>
@@ -47,7 +53,7 @@ export function SelectedCoffees() {
 									<span>{formatCurrency(calcTotalItemPrice(item))}</span>
 								</ContentPriceAndName>
 								<ContainerButtons>
-									<InputQTDEitems item={item[0]} />
+									<InputQTDEitems item={item[0]} quantity={item.length} />
 									<RemoveProduct onClick={() => removeProduct(item[0].name)}>
 										Remover
 									</RemoveProduct>
@@ -56,6 +62,24 @@ export function SelectedCoffees() {
 						</ProductCard>
 					)
 				})}
+			<ContainerPaymentInformations>
+				<div>
+					<span>Total de itens</span>
+					<span>{formatCurrency(shoppingCartData?.total)}</span>
+				</div>
+				<div>
+					<span>Entrega</span>
+					<span>{formatCurrency(deliveryFee)}</span>
+				</div>
+				<div>
+					<strong>Total</strong>
+					<strong>
+						{formatCurrency(shoppingCartData.total + deliveryFee)}
+					</strong>
+				</div>
+			</ContainerPaymentInformations>
+
+			<ButtonOrderConfirm>Confirmar Pedido</ButtonOrderConfirm>
 		</SelectedCoffeesContainer>
 	)
 }

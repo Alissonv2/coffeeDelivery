@@ -9,7 +9,7 @@ export const SelectedCoffeesContainer = styled.section`
 
 	min-width: 448px;
 	width: 100%;
-	height: 498px;
+	min-height: 498px;
 	margin-top: 2rem;
 
 	/* Base/Card */
@@ -25,6 +25,8 @@ export const ProductCard = styled.div`
 
 	width: 26rem;
 	height: 5.5rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid #e6e5e5;
 
 	img {
 		height: 4rem;
@@ -107,4 +109,79 @@ export const ContainerButtons = styled.div`
 	display: flex;
 	width: 100%;
 	gap: 0.5rem;
+`
+
+export const ContainerPaymentInformations = styled.section`
+	display: flex;
+	flex-direction: column;
+	max-width: 26rem;
+	width: 100%;
+	gap: 1.5rem;
+
+	div {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+
+		span {
+			font-family: 'Roboto';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 1rem;
+			line-height: 130%;
+
+			color: #574f4d;
+		}
+
+		strong {
+			font-family: 'Roboto';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 1.5rem;
+			line-height: 130%;
+
+			/* Base/Subtitle */
+
+			color: #403937;
+		}
+	}
+`
+
+export const ButtonOrderConfirm = styled.button`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	max-width: 26rem;
+	width: 100%;
+	height: 4rem;
+
+	/* Brand / Yellow */
+
+	background: #dbac2c;
+	border: none;
+	border-radius: 6px;
+
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1rem;
+	line-height: 160%;
+	/* or 22px */
+
+	text-transform: uppercase;
+
+	/* Base/White */
+
+	color: #ffffff;
+	font-stretch: 100;
+
+	&:hover {
+		cursor: pointer;
+	}
+	&:disabled {
+		opacity: 0.6;
+		cursor: no-drop;
+	}
 `
