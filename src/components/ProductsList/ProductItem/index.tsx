@@ -1,3 +1,4 @@
+import { useCart } from '../../../hooks/ShoppingCart'
 import { CoffeeProducts } from '../../../@types/products'
 import { formatCurrency } from '../../../utils'
 import { CardButton } from '../../CardButton'
@@ -16,6 +17,17 @@ interface ProductItemProps {
 }
 
 export function ProductItem({ product }: ProductItemProps) {
+	const { shoppingCartData } = useCart()
+
+	function qtdeItemsRepeat(name: string) {
+		let counter = 0
+		for (const item of shoppingCartData.items) {
+			if (item.name === name) counter++
+		}
+
+		return counter
+	}
+
 	return (
 		<ContentProductItem>
 			<img src={product?.image} alt="" />
@@ -29,7 +41,10 @@ export function ProductItem({ product }: ProductItemProps) {
 			<FooterProductItem>
 				<span>{formatCurrency(product.price)}</span>
 				<ItemActionsContainer>
-					<InputQTDEitems item={product} />
+					<InputQTDEitems
+						item={product}
+						quantity={qtdeItemsRepeat(product.name)}
+					/>
 					<CardButton
 						width={2.375}
 						height={2.375}
