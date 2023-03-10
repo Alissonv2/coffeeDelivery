@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-case-declarations */
 import { ProductItem } from '../@types/products'
 
 interface Cartstate {
@@ -14,8 +16,13 @@ export function cartReducer(
 				items: [...state.items, action.payload],
 			}
 		case 'REMOVE_ITEM':
+			const index = state.items.findIndex(
+				(item) => item.name === action.payload,
+			)
+			const updateItems = [...state.items]
+			updateItems.splice(index, 1)[0]
 			return {
-				items: state.items.filter((item) => item.name !== action.payload),
+				items: updateItems,
 			}
 		case 'REMOVE_PRODUCT':
 			return {
