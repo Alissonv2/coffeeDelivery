@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ActionButton, InputContainer } from './styles'
 import { Plus, Minus } from 'phosphor-react'
 import { useCart } from '../../../hooks/ShoppingCart'
@@ -9,11 +9,13 @@ type ItemProps = {
 		price: number
 		image: string
 	}
+
+	quantity: number
 }
 
-export function InputQTDEitems({ item }: ItemProps) {
+export function InputQTDEitems({ item, quantity }: ItemProps) {
 	const { addItem, removeItem } = useCart()
-	const [inputValue, setInputValue] = useState<number>(0)
+	const [inputValue, setInputValue] = useState<number>(quantity)
 	const { name, price, image } = item
 
 	function handleSetInputValue() {
@@ -27,6 +29,10 @@ export function InputQTDEitems({ item }: ItemProps) {
 			setInputValue((state) => state - 1)
 		}
 	}
+
+	useEffect(() => {
+		setInputValue(quantity || 0)
+	}, [quantity])
 
 	return (
 		<InputContainer>
