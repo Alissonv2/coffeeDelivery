@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useReducer } from 'react'
 import { ProductItem } from '../@types/products'
 import { cartReducer } from '../reducers/Cart'
+import { calcTotalItemPrice } from '../utils'
 
 interface CartShoppingData {
 	items: ProductItem[]
@@ -40,10 +41,7 @@ export function CartContextProvider({ children }: CartContextType) {
 
 	const shoppingCartData = {
 		...productsState,
-		total: productsState.items.reduce(
-			(accumulator, currentValue) => accumulator + currentValue.price,
-			0,
-		),
+		total: calcTotalItemPrice(productsState.items),
 	}
 
 	return (
