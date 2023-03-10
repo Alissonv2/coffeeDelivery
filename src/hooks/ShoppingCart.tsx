@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useReducer } from 'react'
+import {
+	createContext,
+	ReactNode,
+	useContext,
+	useEffect,
+	useReducer,
+} from 'react'
 import { ProductItem } from '../@types/products'
 import { cartReducer } from '../reducers/Cart'
 import { calcTotalItemPrice } from '../utils'
@@ -22,9 +28,17 @@ interface CartContextType {
 export const CartContext = createContext({} as CartContextTypereturn)
 
 export function CartContextProvider({ children }: CartContextType) {
-	const [productsState, dispatch] = useReducer(cartReducer, {
+	const initialState: CartShoppingData = JSON.parse(
+		localStorage.getItem('@CofeeDelivery-cart') || 'null',
+	) || {
 		items: [],
-	})
+		valorTotal: 0,
+	}
+	const [productsState, dispatch] = useReducer(cartReducer, initialState)
+
+	useEffect(() => {
+		localStorage.setItem('@CofeeDelivery-cart', JSON.stringify(productsState))
+	}, [productsState])
 
 	function addItem(item: ProductItem) {
 		const newItem = { ...item, id: Date.now() }
