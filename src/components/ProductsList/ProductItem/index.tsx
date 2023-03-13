@@ -17,7 +17,8 @@ interface ProductItemProps {
 }
 
 export function ProductItem({ product }: ProductItemProps) {
-	const { shoppingCartData } = useCart()
+	const { shoppingCartData, addItem } = useCart()
+	const { name, price, image } = product
 
 	function qtdeItemsRepeat(name: string) {
 		let counter = 0
@@ -26,6 +27,10 @@ export function ProductItem({ product }: ProductItemProps) {
 		}
 
 		return counter
+	}
+
+	function handleAddItemToCar() {
+		addItem({ name, price, image })
 	}
 
 	return (
@@ -50,6 +55,8 @@ export function ProductItem({ product }: ProductItemProps) {
 						height={2.375}
 						color={'#F3F2F2'}
 						background={'#4B2995'}
+						isSetItem
+						addItems={handleAddItemToCar}
 					/>
 				</ItemActionsContainer>
 			</FooterProductItem>
