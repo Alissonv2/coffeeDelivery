@@ -110,22 +110,22 @@ export function FormDelivery() {
 				</ContainerTitle>
 				<SelectPaymentContainer>
 					<CardPaymentButton
-						onClick={() => savePaymentMethod('credit')}
-						checked={paymentMethod === 'credit' && true}
+						onClick={() => savePaymentMethod('Cartão de crédito')}
+						checked={paymentMethod === 'Cartão de crédito' && true}
 					>
 						<Cardholder size={32} color="#8047F8" />
 						<input type="submit" value="cartão de crédito" />
 					</CardPaymentButton>
 					<CardPaymentButton
-						onClick={() => savePaymentMethod('debit')}
-						checked={paymentMethod === 'debit' && true}
+						onClick={() => savePaymentMethod('Cartão de débito')}
+						checked={paymentMethod === 'Cartão de débito' && true}
 					>
 						<Bank size={32} color="#8047F8" />
 						<input type="submit" value="cartão de débito" />
 					</CardPaymentButton>
 					<CardPaymentButton
-						onClick={() => savePaymentMethod('money')}
-						checked={paymentMethod === 'money' && true}
+						onClick={() => savePaymentMethod('Dinheiro')}
+						checked={paymentMethod === 'Dinheiro' && true}
 					>
 						<Money size={32} color="#8047F8" />
 						<input type="submit" value="dinheiro" />

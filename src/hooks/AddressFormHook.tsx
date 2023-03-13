@@ -10,7 +10,11 @@ interface AddressDataType {
 	uf: string
 }
 
-type PaymentMethodType = 'credit' | 'debit' | 'money' | null
+type PaymentMethodType =
+	| 'Cartão de crédito'
+	| 'Cartão de débito'
+	| 'Dinheiro'
+	| null
 
 export function useAddressDeliveryData() {
 	const [addressData, setAddressData] = useState<AddressDataType>()
