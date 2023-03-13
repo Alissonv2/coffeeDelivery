@@ -19,6 +19,7 @@ interface CartContextTypereturn {
 	addItem: (item: ProductItem) => void
 	removeItem: (productName: string) => void
 	removeProduct: (productNameRemove: string) => void
+	resetCart: () => void
 }
 
 interface CartContextType {
@@ -49,6 +50,10 @@ export function CartContextProvider({ children }: CartContextType) {
 		dispatch({ type: 'REMOVE_ITEM', payload: productName })
 	}
 
+	function resetCart() {
+		dispatch({ type: 'RESET_CART', payload: '' })
+	}
+
 	function removeProduct(productNameRemove: string) {
 		dispatch({ type: 'REMOVE_PRODUCT', payload: productNameRemove })
 	}
@@ -60,7 +65,13 @@ export function CartContextProvider({ children }: CartContextType) {
 
 	return (
 		<CartContext.Provider
-			value={{ addItem, removeItem, removeProduct, shoppingCartData }}
+			value={{
+				addItem,
+				removeItem,
+				removeProduct,
+				shoppingCartData,
+				resetCart,
+			}}
 		>
 			{children}
 		</CartContext.Provider>
