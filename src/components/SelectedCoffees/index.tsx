@@ -14,11 +14,25 @@ import { ProductItem } from '../../@types/products'
 import { calcTotalItemPrice, formatCurrency } from '../../utils/index'
 import { InputQTDEitems } from '../Inputs/InputQtdeItems'
 import { useEffect, useState } from 'react'
+import { useAddressDeliveryData } from '../../hooks/AddressFormHook'
+import { useNavigate } from 'react-router-dom'
 
 export function SelectedCoffees() {
-	const { shoppingCartData, removeProduct } = useCart()
+	const { shoppingCartData, removeProduct, resetCart } = useCart()
+	const { addressData } = useAddressDeliveryData()
 	const [dataProducts, setDataProducts] = useState<ProductItem[][]>([])
 	const deliveryFee = 3.5
+
+	const navigate = useNavigate()
+
+	function handleConfirmedOrder() {
+		if (shoppingCartData.total > 0 && addressData) {
+			resetCart()
+			navigate('/order-confirmed')
+		} else {
+			console.log('não')
+		}
+	}
 
 	async function handleProducts(productsArray: ProductItem[] | undefined) {
 		const newProductArray = productsArray?.reduce(
@@ -79,7 +93,12 @@ export function SelectedCoffees() {
 				</div>
 			</ContainerPaymentInformations>
 
-			<ButtonOrderConfirm>Confirmar Pedido</ButtonOrderConfirm>
+			<ButtonOrderConfirm
+				disabled={!addressData || shoppingCartData.total === 0}
+				onClick={handleConfirmedOrder}
+			>
+				Confirmar Pedido
+			</ButtonOrderConfirm>
 		</SelectedCoffeesContainer>
 	)
 }
