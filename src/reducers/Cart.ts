@@ -28,6 +28,10 @@ export function cartReducer(
 			return {
 				items: state.items.filter((item) => item.name !== action.payload),
 			}
+		case 'RESET_CART':
+			return {
+				items: [],
+			}
 
 		default:
 			return state
